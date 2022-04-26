@@ -1,5 +1,140 @@
-self.addEventListener('fetch', event => {
+var appShellFiles = [
+    '/TourNest/assets/css/animate.css',
+    '/TourNest/assets/css/bootsnav.css',
+    '/TourNest/assets/css/bootstrap.min.css',
+    '/TourNest/assets/css/datepicker.css',
+    '/TourNest/assets/css/font-awesome.min.css',
+    '/TourNest/assets/css/hover-min.css',
+    '/TourNest/assets/css/jquery-ui.min.css',
+    '/TourNest/assets/css/owl.carousel.min.css',
+    '/TourNest/assets/css/owl.theme.default.min.css',
+    '/TourNest/assets/css/responsive.css',
+    '/TourNest/assets/css/style.css',
+    '/TourNest/assets/fonts/FontAwesome.otf',
+    '/TourNest/assets/fonts/fontawesome-webfont.eot',
+    '/TourNest/assets/fonts/fontawesome-webfont.svg',
+    '/TourNest/assets/fonts/fontawesome-webfont.ttf',
+    '/TourNest/assets/fonts/fontawesome-webfont.woff',
+    '/TourNest/assets/fonts/fontawesome-webfont.woff2',
+    '/TourNest/assets/fonts/glyphicons-halflings-regular.eot',
+    '/TourNest/assets/fonts/glyphicons-halflings-regular.svg',
+    '/TourNest/assets/fonts/glyphicons-halflings-regular.ttf',
+    '/TourNest/assets/fonts/glyphicons-halflings-regular.woff',
+    '/TourNest/assets/fonts/glyphicons-halflings-regular.woff2',
+    '/TourNest/assets/images/blog/b1.jpg',
+    '/TourNest/assets/images/blog/b2.jpg',
+    '/TourNest/assets/images/blog/b3.jpg',
+    '/TourNest/assets/images/client/testimonial1.jpg',
+    '/TourNest/assets/images/client/testimonial2.jpg',
+    '/TourNest/assets/images/gallary/g1.jpg',
+    '/TourNest/assets/images/gallary/g2.jpg',
+    '/TourNest/assets/images/gallary/g3.jpg',
+    '/TourNest/assets/images/gallary/g4.jpg',
+    '/TourNest/assets/images/gallary/g5.jpg',
+    '/TourNest/assets/images/gallary/g6.jpg',
+    '/TourNest/assets/images/home/banner.jpg',
+    '/TourNest/assets/images/home/fastive-image.jpg',
+    '/TourNest/assets/images/home/offer-timer.jpg',
+    '/TourNest/assets/images/home/subscribe-banner.jpg',
+    '/TourNest/assets/images/offer/offer-banner.jpg',
+    '/TourNest/assets/images/offer/offer-shape.png',
+    '/TourNest/assets/images/packages/p1.jpg',
+    '/TourNest/assets/images/packages/p2.jpg',
+    '/TourNest/assets/images/packages/p3.jpg',
+    '/TourNest/assets/images/packages/p4.jpg',
+    '/TourNest/assets/images/packages/p5.jpg',
+    '/TourNest/assets/images/packages/p6.jpg',
+    '/TourNest/assets/images/service/s1.jpg',
+    '/TourNest/assets/images/service/s1.png',
+    '/TourNest/assets/images/service/s2.png',
+    '/TourNest/assets/images/service/s3.png',
+    '/TourNest/assets/js/bootsnav.js',
+    '/TourNest/assets/js/bootstrap.min.js',
+    '/TourNest/assets/js/custom.js',
+    '/TourNest/assets/js/datepicker.js',
+    '/TourNest/assets/js/jquery-ui.min.js',
+    '/TourNest/assets/js/jquery.counterup.min.js',
+    '/TourNest/assets/js/jquery.filterizr.min.js',
+    '/TourNest/assets/js/jquery.js',
+    '/TourNest/assets/js/jquery.min.js',
+    '/TourNest/assets/js/jquery.sticky.js',
+    '/TourNest/assets/js/owl.carousel.min.js',
+    '/TourNest/assets/js/waypoints.min.js',
+    '/TourNest/assets/logo/favicon.png',
+    '/TourNest/dist/css/bootstrap-theme.css',
+    '/TourNest/dist/css/bootstrap-theme.css.map',
+    '/TourNest/dist/css/bootstrap-theme.min.css',
+    '/TourNest/dist/css/bootstrap-theme.min.css.map',
+    '/TourNest/dist/css/bootstrap.css',
+    '/TourNest/dist/css/bootstrap.css.map',
+    '/TourNest/dist/css/bootstrap.min.css',
+    '/TourNest/dist/css/bootstrap.min.css.map',
+    '/TourNest/dist/fonts/glyphicons-halflings-regular.eot',
+    '/TourNest/dist/fonts/glyphicons-halflings-regular.svg',
+    '/TourNest/dist/fonts/glyphicons-halflings-regular.ttf',
+    '/TourNest/dist/fonts/glyphicons-halflings-regular.woff',
+    '/TourNest/dist/fonts/glyphicons-halflings-regular.woff2',
+    '/TourNest/dist/js/bootstrap.js',
+    '/TourNest/dist/js/bootstrap.min.js',
+    '/TourNest/dist/js/jquery.js',
+    '/TourNest/dist/js/npm.js',
+    '/TourNest/dist/varios.html',
+    '/TourNest/AMBER.html',
+    '/TourNest/Nosotros.html',
+    '/TourNest/allstartpro.html',
+    '/TourNest/boligrafos.html',
+    '/TourNest/centros de mesa.html',
+    '/TourNest/cintas.html',
+    '/TourNest/configura.php',
+    '/TourNest/controlador.php',
+    '/TourNest/corte vin.html',
+    '/TourNest/credenciales pvc.html',
+    '/TourNest/dulceros.html',
+    '/TourNest/flyers.html',
+    '/TourNest/fundas.html',
+    '/TourNest/gorras.html',
+    '/TourNest/index.html',
+    '/TourNest/invitaciones.html',
+    '/TourNest/llaveros.html',
+    '/TourNest/lonas.html',
+    '/TourNest/mesa de dulces.html',
+    '/TourNest/micro per.html',
+    '/TourNest/notas de remi.html',
+    '/TourNest/pines.html',
+    '/TourNest/playeras.html',
+    '/TourNest/productos pro.html',
+    '/TourNest/recetas med.html',
+    '/TourNest/recuerdos.html',
+    '/TourNest/rompecabezas.html',
+    '/TourNest/sellos.html',
+    '/TourNest/sudaderas.html',
+    '/TourNest/tarjetas.html',
+    '/TourNest/tazas.html',
+    '/TourNest/termos.html',
+    '/TourNest/vinil imp.html',
+];
 
-    event.respondWith(fetch(event.request));
+self.addEventListener('install', event => {
 
+    const endInstall = caches.open('box').then(cache => {
+        return cache.addAll(appShellFiles);
+    });
+
+    event.waitUntil(endInstall);
+
+    self.skipWaiting();
+});
+
+self.addEventListener('fetch', e => {
+
+    const respuesta = caches.open('box').then(cache => {
+
+        fetch(e.request).then(newsRes =>
+            cache.put(e.request, newsRes));
+
+        return cache.match(e.request);
+
+    });
+
+    e.respondWith(respuesta);
 });
